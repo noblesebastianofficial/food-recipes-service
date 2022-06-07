@@ -6,7 +6,7 @@ https://github.com/noblesebastianofficial/food-recipes-app
 
 # Food Recipe App without JWT
 
-This APP created using basic authentication.Micro Services to display the Food Recipes API . This API allows users to manage your favourite recipes.
+This APP is created using basic authentication.This micro services contains the Food Recipes API . This API allows users to manage your favourite recipes.
 These API’s  show all available recipes and the actions to create, update and delete a recipe.
 
 Credentials are given as plain text. Later this can be moved to vault or implement jwt using identity 
