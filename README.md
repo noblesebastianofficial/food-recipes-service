@@ -1,14 +1,19 @@
-# Food Recipe App
+# Food Recipe App without JWT
 
-Micro Services to display the Food Recipes API . This API allows users to manage your favourite recipes.
-These API’s  show all available recipes and the actions to create, update and delete a recipe. This APP created 
-using basic authentication.
+This APP created using basic authentication.Micro Services to display the Food Recipes API . This API allows users to manage your favourite recipes.
+These API’s  show all available recipes and the actions to create, update and delete a recipe.
 
 Credentials are given as plain text. Later this can be moved to vault or implement jwt using identity 
 management solutions.
 
 * User name- admin
 * password-  password
+
+# Food Recipe App with JWT
+
+As a additional solution Recipe App is created using JWT and Eureka. This solution can be found in below link
+
+https://github.com/noblesebastianofficial/food-recipes-app
 
 ## Software Requirements
 
