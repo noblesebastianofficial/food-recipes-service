@@ -1,0 +1,63 @@
+spring:
+  application:
+    name: food-recipes-service
+  datasource:
+    url: jdbc:h2:mem:test
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: false
+  h2:
+    console:
+      enabled: true
+server:
+  port: 9091
+
+logging:
+  level:
+    root: INFO
+
+management:
+  endpoints:
+    web:
+      base-path: /food-recipes-service
+      exposure:
+        include: "health"
+
+---
+
+spring:
+  profiles: prod
+  application:
+    name: food-recipes-service
+  datasource:
+    url: jdbc:h2:mem:test
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: false
+  h2:
+    console:
+      enabled: true
+server:
+  port: 9091
+
+logging:
+  level:
+    root: WARN
+
+management:
+  endpoints:
+    web:
+      base-path: /food-recipes-service
+      exposure:
+        include: "health"
+---

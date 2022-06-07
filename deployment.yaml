@@ -1,0 +1,82 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-food-recipes-service
+  namespace: food-recipes-ns
+spec:
+  selector:
+    app: food-recipes-service
+  ports:
+  - port: 9091
+    targetPort: http
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: food-recipes-service
+  namespace: food-recipes-ns
+  labels:
+    app: food-recipes-service
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: food-recipes-service
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 33%
+  template:
+    metadata:
+      labels:
+        name: food-recipes-service
+        app: food-recipes-service
+    spec:
+      containers:
+      - name: food-recipes-service
+        image: foodrecipesservice:latest
+        imagePullPolicy: Always
+        env:
+          - name: SPRING_PROFILES_ACTIVE
+            value: prod
+        ports:
+        - name: http
+          containerPort: 9091
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "256Mi"
+        readinessProbe:
+          httpGet:
+            path: /food-recipes-service/health
+            port: 9091
+          initialDelaySeconds: 30
+          timeoutSeconds: 2
+          periodSeconds: 30
+          failureThreshold: 2
+        livenessProbe:
+          httpGet:
+            path: /food-recipes-service/health
+            port: 9091
+          initialDelaySeconds: 60
+          timeoutSeconds: 2
+          periodSeconds: 30
+          failureThreshold: 2
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: food-recipes-service
+  namespace: food-recipes-ns
+spec:
+  maxReplicas: 2
+  minReplicas: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: widgetstore
+  targetCPUUtilizationPercentage: 80
